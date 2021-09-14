@@ -29,7 +29,9 @@
 		"coenraads.bracket-pair-colorizer",
 		"stephanvs.dot",
 		"jroesch.lean",
-		"ms-vscode-remote.remote-ssh"
+		"ms-vscode-remote.remote-ssh",
+		"tht13.html-preview-vscode",
+		
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
