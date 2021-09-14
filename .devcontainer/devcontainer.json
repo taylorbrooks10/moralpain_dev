@@ -31,7 +31,13 @@
 		"jroesch.lean",
 		"ms-vscode-remote.remote-ssh",
 		"tht13.html-preview-vscode",
-		
+		"tht13.html-preview-vscode",
+        "cschlosser.doxdocgen",
+        "github.codespaces",
+        "github.vscode-pull-request-github",
+		"eamodio.gitlens",
+        "formulahendry.code-runner",
+        "esbenp.prettier-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
