@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/ubuntu
 {
-	"name": "leanvm",
+	"name": "pdrvm",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"args": { "VARIANT": "focal" }
@@ -36,7 +36,7 @@
 	"forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "uname -a",
+	"postCreateCommand": "git clone https://github.com/uva-cs/pdr",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"

@@ -1,6 +1,6 @@
-# Lean-Based Project Builder
+# Program and Data Representation IDE Builder
 
-You're here because you want (someone) to build an Ubuntu and VSCode-based development environment, backed by your own GitHub repository, for professional writing and analyzing of logic and mathematics using the Lean Prover, with none of the daunting re-configuration of your local computer sometimes required to set up fully working environments. The good news is that you can have it all with just a few clicks of the mouse and keys, as long as you have VSCode and DockerDesktop running properly on Windows 10 (footnote below) or OSX machine. This work is intended to make Lean accessible to as many early students as possible, in part by removing all of the mundane but often complex, error-prone, and off-putting system administering tasks required to get a working environment set up. Simply follow these steps and in a few minutes you should have a GitHub-repo-backed, VSCode-provided IDE opened to edit a fork of this repository cloned into your own local Docker container, configured according to our specifications to provide a first-rate, trouble-free Lean Development Experience. 
+Fork this repository UVa CS Program and Data Representation. Follow the steps below and in a few minutes you should have a GitHub-repo-backed, VSCode-provided IDE opened to edit a fork of this repository cloned into your own local Docker container, along with a clone of https://github.com/uva-cs/pdr.git. Both projects will reside in /workspaces in the container VM.  
 
 ## What To Do
 - Update your operating system:
@@ -20,30 +20,32 @@ You're here because you want (someone) to build an Ubuntu and VSCode-based devel
   - Fork this repo using the *Fork* button in the upper right corner. 
   -   This will create a copy of this entire repository in *your* GitHub account. Visit your GitHub page to confirm that you now have a clone of this repository. 
   -   Select the green Code button, then HTTPS, then copy the URL that is provided. This will be the GitHub URL of your newly forked copy of the respository.
-- Open our Lean Development Environment directly from your new GitHub repository
+- Open our Development Environment directly from your new GitHub repository
   - Launch a *new* VSCode window. 
   - Use CTRL/CMD-SHIFT-P to bring up the VSCode command palatte. 
   - Search for and select *Clone Repository in Container Volume*
   - Paste the URL of your new repository as the argument.
   - If it asks, select *unique repository*.
 - Wait for your development environment to completely "boot up" before taking any further actions.
-- Check to see that everything is working
-  - Open the test.lean file (src/test/test_lean_mathlib.lean)
-  -Check that the conditions described therein are satisfied.
+- Set your git user.name and user.email values in your VM using a terminal
+  - git config --global user.name "Your Name"
+  - git config --global user.email "your@email.addr"
 
 ## How It Works
-We deliver a Lean development environment via VSCode and its *Remote-Containers* capabilities. In a nutshell, when you ask VSCode to clone our repository, it will actually fork it and then clone your fork into the container that it launches to provide the programming platform you will then use to develop your solutions. It is very important to commit changes you make to your container-local repository, but then also to push them to your GitHub repo to back them up and because that should be the main respository for your project. You can log into it by simply opening a Terminal in VSCode. The clone of your repo is in the /workspaces folder within the container file system (or storage *volume*, as it's called).
+We deliver a development environment via VSCode and its *Remote-Containers* capabilities. In a nutshell, when you ask VSCode to clone our repository, it will actually fork it and then clone your fork into the container that it launches to provide the programming platform you will then use to develop your solutions. It is very important to commit changes you make to your container-local repository, but then also to push them to your GitHub repo to back them up and because that should be the main respository for your project. You can log into it by simply opening a Terminal in VSCode. The clone of your repo is in the /workspaces folder within the container file system (or storage *volume*, as it's called).
 
 ## Risk Alert and Avoidance
-It is important to understand that commits made to git are stored in the Docker container serving up the develop environment.  if you delete the container or its storage volume (which you could do through Docker Desktop), this will erase the work stored in the container. To make your container-local changes persistent, stage/add and then commit your local changes to the local repo, then push your container-repo-local changes to your repository on GitHub. 
+
+It is important to understand that commits made to git are stored in the Docker container serving up the develop environment.  if you delete the container or its storage volume (which you could do through Docker Desktop), this will erase the work stored in the container. To make your container-local changes persistent, stage/add and then commit your local changes to the local repo, then push your container-repo-local changes to your repository on GitHub.
 
 ## Help Make It Even Better
+
 Let us know what you think. Better yet, make it better and send us a PR. You'll be completely set up to do that by the results of this procedure. 
 
-
 ## Legal and contact
-Copyright: © 2021 By the Rector and Visitors of the University of Virginia.
-Supervising Author: Kevin Sullivan. UVa CS Dept. sullivan@virginia.edu. 
-Acknowledgements: Thank you to multiple students for read, test, and fixing.
+
+Copyright: © 2021 By Kevin Sullivan.
+Supervising Author: Kevin Sullivan. UVa CS Dept. sullivan@virginia.edu.
+Acknowledgements: Thank you to multiple students for reading, testing, fixing.
 
 
