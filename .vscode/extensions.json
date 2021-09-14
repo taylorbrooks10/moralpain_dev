@@ -1,6 +1,6 @@
 {
     "recommendations": [
-        "ms-vsliveshare.vsliveshare",
+		"ms-vsliveshare.vsliveshare",
 		"ms-vsliveshare.vsliveshare-audio",
 		"ms-vsliveshare.vsliveshare-pack",
 		"ms-vscode-remote.remote-containers",
@@ -15,11 +15,11 @@
 		"jroesch.lean",
 		"ms-vscode-remote.remote-ssh",
 		"tht13.html-preview-vscode",
-        "cschlosser.doxdocgen",
-        "github.codespaces",
-        "github.vscode-pull-request-github",
-		"eamodio.gitlens",
-        "formulahendry.code-runner",
-        "esbenp.prettier-vscode"
-    ]
+		"cschlosser.doxdocgen",
+		"github.codespaces",
+		"github.vscode-pull-request-github",
+		"formulahendry.code-runner",
+		"esbenp.prettier-vscode",
+		"vscjava.vscode-java-pack"
+	]
 }

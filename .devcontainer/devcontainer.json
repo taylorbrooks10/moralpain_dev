@@ -37,7 +37,8 @@
         "github.vscode-pull-request-github",
 		"eamodio.gitlens",
         "formulahendry.code-runner",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+		"vscjava.vscode-java-pack"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
