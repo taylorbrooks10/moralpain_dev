@@ -44,7 +44,7 @@
 	"forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "git clone https://github.com/uva-cs/pdr",
+	"postCreateCommand": "git submodule add https://github.com/uva-cs/pdr && git submodule update --init --recursive",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
