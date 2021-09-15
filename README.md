@@ -1,6 +1,6 @@
-# Program and Data Representation IDE Builder
+# Moral Distress App IDE Builder
 
-Fork this repository UVa CS Program and Data Representation. Follow the steps below and in a few minutes you should have a GitHub-repo-backed, VSCode-provided IDE opened to edit a fork of this repository cloned into your own local Docker container, along with a clone of <https://github.com/uva-cs/pdr.git>. Both projects will reside in /workspaces in the container VM.  
+Fork this repository to contribute to development of UVa's Moral Distress Monitoring and Mitigation app, a joint project between Computer Science and the School or Nursing. Follow the steps below and in a few minutes you should have a GitHub-repo-backed, VSCode-provided IDE opened to edit a fork of this repository cloned into your own local Docker container, along with a clone of <https://github.com/kevinsullivan/moralpain.git>. Both projects will reside in /workspaces in the container VM.  
 
 ## What To Do
 
