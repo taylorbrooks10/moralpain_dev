@@ -1,115 +1,225 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "UVA's Moral Distress Survey",
+      home: HomeRoute()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HomeRoute extends StatelessWidget {
+  const HomeRoute({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF232D4B),
+        title: const Text('Moral Distress Survey'),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      body: Center(
+        child: ElevatedButton(
+            child: const Text('Take the Moral Distress Survey'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MDTRoute()),
+              );
+            },
+            style: ElevatedButton.styleFrom(primary: const Color(0xFF232D4B))),
+      ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+class MDTRoute extends StatelessWidget {
+  const MDTRoute({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF232D4B),
+          title: const Text("Please Rate your Moral Distress"),
+        ),
+        body: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
+          child: Column(
+            children: [
+              SliderWidget(
+                sliderHeight: 100,
+              ),
+
+              // Spacing.
+              SizedBox(height: 20),
+
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const QuestionaireRoute()),
+                    );
+                  },
+                  child: const Text('Next'),
+                  style: ElevatedButton.styleFrom(
+                      primary: const Color(0xFF232D4B)))
+            ],
+          ),
+        ));
+  }
+}
+
+class QuestionaireRoute extends StatelessWidget {
+  const QuestionaireRoute({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        backgroundColor: const Color(0xFF232D4B),
+        title: const Text('Questionaire'),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ElevatedButton(
+            child: const Text('Submit'),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text(
+                  'Thank You - Your response has been recorded.',
+                  textAlign: TextAlign.center,
+                ),
+                duration: Duration(seconds: 3),
+              ));
+
+              // TODO (nphair): Is a delay necessary?
+              Future.delayed(const Duration(seconds: 3), () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+            },
+            style: ElevatedButton.styleFrom(primary: const Color(0xFF232D4B))),
+      ),
+    );
+  }
+}
+
+// NB (nphair): Temporary slider widget cribbed from here:
+// https://medium.com/flutter-community/flutter-sliders-demystified-4b3ea65879c
+// TODO (nphair): Decide if this needs to literally be a thermometer.
+class SliderWidget extends StatefulWidget {
+  final double sliderHeight;
+  final int min;
+  final int max;
+
+  SliderWidget({
+    this.sliderHeight = 48,
+    this.max = 10,
+    this.min = 0,
+  });
+
+  @override
+  _SliderWidgetState createState() => _SliderWidgetState();
+}
+
+class _SliderWidgetState extends State<SliderWidget> {
+  double _value = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double paddingFactor = .2;
+
+    var container = Container(
+      // Build out the surrounding container.
+      width: widget.sliderHeight * 5.5,
+      height: widget.sliderHeight,
+      decoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.all(Radius.circular(widget.sliderHeight * .3)),
+        gradient: const LinearGradient(
+            // NB (nphair): Picked a gradient from brewer but probably want something else.
+            colors: [
+              Color(0xff2c7bb6),
+              Color(0xffabd9e9),
+              Color(0xffffffbf),
+              Color(0xfffdae61),
+              Color(0xffd7191c),
+            ],
+            begin: FractionalOffset(0.1, 0.1),
+            end: FractionalOffset(0.8, 0.80),
+            tileMode: TileMode.clamp),
+      ),
+
+      // Nest a slider in the container.
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(widget.sliderHeight * paddingFactor, 2,
+            widget.sliderHeight * paddingFactor, 2),
+        child: Row(
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            // Min Slider Value Text.
+            RotatedBox(
+                quarterTurns: 1,
+                child: Text(
+                  '${widget.min}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: widget.sliderHeight * .3,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                )),
+
+            // Spacing.
+            SizedBox(width: widget.sliderHeight * .1),
+
+            // Slider.
+            Expanded(
+              child: Center(
+                child: SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    activeTrackColor: Colors.white.withOpacity(1),
+                    inactiveTrackColor: Colors.white.withOpacity(.5),
+                    trackHeight: 4.0,
+                    overlayColor: Colors.white.withOpacity(.4),
+                    valueIndicatorColor: Colors.white,
+                    activeTickMarkColor: Colors.white,
+                    inactiveTickMarkColor: Colors.black.withOpacity(.7),
+                  ),
+                  child: Slider(
+                      value: _value,
+                      min: 0,
+                      max: 10,
+                      divisions: 10,
+                      onChanged: (value) {
+                        setState(() {
+                          _value = value;
+                        });
+                      }),
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+
+            // Spacing.
+            SizedBox(width: widget.sliderHeight * .1),
+
+            // Max Slider Value Text.
+            RotatedBox(
+                quarterTurns: 1,
+                child: Text(
+                  '${widget.max}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: widget.sliderHeight * .3,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                )),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
+    return RotatedBox(quarterTurns: 3, child: container);
   }
 }
