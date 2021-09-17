@@ -38,14 +38,15 @@
 		"eamodio.gitlens",
         "formulahendry.code-runner",
         "esbenp.prettier-vscode",
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		"Dart-code.flutter"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "git submodule add https://github.com/uva-cs/pdr && git submodule update --init --recursive",
+	"postCreateCommand": "echo 'Hello Cyber-Social Moral Distress Research Team!",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
