@@ -3,6 +3,9 @@
 # Extend vm built by pdrvm_configure
 FROM docker.io/kevinsullivan/moralpain
 
+# Target Google Play's minimum api.
+FROM androidsdk/android-29
+
 ARG FLUTTER_VERSION=2.5.0
 
 # Create image without any user interaction
@@ -14,7 +17,6 @@ WORKDIR /opt
 ADD https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz /opt
 RUN tar xJvf /opt/flutter_linux_${FLUTTER_VERSION}-stable.tar.xz
 ENV PATH="/opt/flutter/bin:${PATH}"
-RUN flutter doctor
 
 ENTRYPOINT ["flutter"]
 CMD ["doctor"]
