@@ -46,7 +46,7 @@
 	"forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "echo 'Hello Cyber-Social Moral Distress Research Team!",
+	"postCreateCommand": "echo 'Hello Cyber-Social Moral Distress Research Team!'",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	// "remoteUser": "vscode"
