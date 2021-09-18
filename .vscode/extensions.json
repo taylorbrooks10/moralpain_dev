@@ -20,6 +20,7 @@
 		"github.vscode-pull-request-github",
 		"formulahendry.code-runner",
 		"esbenp.prettier-vscode",
-		"vscjava.vscode-java-pack"
+		"vscjava.vscode-java-pack",
+		"Dart-Code.flutter"
 	]
 }
