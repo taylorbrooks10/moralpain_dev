@@ -1,19 +1,20 @@
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:moralpain/thermometer/view/painter1.dart';
 
 class ThermometerSliderTrackShape extends SliderTrackShape {
-  /// Create a slider track that draws 2 rectangles.
-  const ThermometerSliderTrackShape({this.disabledThumbGapWidth = 2.0});
+  ThermometerSliderTrackShape();
 
-  /// Horizontal spacing, or gap, between the disabled thumb and the track.
-  ///
-  /// This is only used when the slider is disabled. There is no gap around
-  /// the thumb and any part of the track when the slider is enabled. The
-  /// Material spec defaults this gap width 2, which is half of the disabled
-  /// thumb radius.
-  final double disabledThumbGapWidth;
+  // TODO (nphair): Parameterize these.
+  final double borderThickness = 1;
+  final Color borderColor = Color(0xFFE57200);
+  final Color fillColor = Colors.white;
+  final Color measurementLineColor = Color(0xFF232D4B);
+  final int thermometerSections = 10;
 
+  /**
+   * The box the slider itself will be placed in by the framework.
+   */
   @override
   Rect getPreferredRect({
     required RenderBox parentBox,
@@ -22,22 +23,32 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
     bool isEnabled = false,
     bool isDiscrete = true,
   }) {
+    assert(sliderTheme.overlayShape != null);
+    assert(sliderTheme.trackHeight != null);
+
     final double overlayWidth =
         sliderTheme.overlayShape!.getPreferredSize(isEnabled, isDiscrete).width;
     final double trackHeight = sliderTheme.trackHeight!;
+
     assert(overlayWidth >= 0);
     assert(trackHeight >= 0);
-    assert(parentBox.size.width >= overlayWidth);
-    assert(parentBox.size.height >= trackHeight);
+    //assert(parentBox.paintBounds.height > trackHeight);
 
     final double trackLeft = offset.dx + overlayWidth / 2;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;
-    // TODO(clocksmith): Although this works for a material, perhaps the default
-    // rectangular track should be padded not just by the overlay, but by the
-    // max of the thumb and the overlay, in case there is no overlay.
-    final double trackWidth = parentBox.size.width - overlayWidth;
-    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
+    final double trackRight = trackLeft + parentBox.size.width - overlayWidth;
+    final double trackBottom = trackTop + trackHeight;
+
+    // If the parentBox'size less than slider's size the trackRight will be less than trackLeft, so switch them.
+    var bbox = Rect.fromLTRB(math.min(trackLeft, trackRight), trackTop,
+        math.max(trackLeft, trackRight), trackBottom);
+
+    // NB (nphair): There is a more direct way to achieve this rectangle but
+    // this will work for now.
+    var thermometerBaseRadius = bbox.height / 16;
+    return Rect.fromPoints(
+        bbox.topLeft.translate(thermometerBaseRadius * 2, 0), bbox.bottomRight);
   }
 
   @override
@@ -49,13 +60,21 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
       bool isEnabled = false,
       bool isDiscrete = true,
       required TextDirection textDirection}) {
-    // If the slider track height is 0, then it makes no difference whether the
-    // track is painted or not, therefore the painting can be a no-op.
     if (sliderTheme.trackHeight == 0) {
       return;
     }
 
-    final Rect trackRect = getPreferredRect(
+    // Paint Constants.
+    final fillPaint = Paint()..color = fillColor;
+    final borderPaint = Paint()..color = borderColor;
+    final measurementLinePaint = Paint()
+      ..color = measurementLineColor
+      ..strokeWidth = 2.0;
+    var borderStyle = BorderSide(color: borderColor, width: borderThickness);
+
+    // This is the rectangle the slider will be placed on. Our painting must
+    // extend below it for the thermometer base.
+    final Rect preferredRect = getPreferredRect(
       parentBox: parentBox,
       offset: offset,
       sliderTheme: sliderTheme,
@@ -63,26 +82,98 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
       isDiscrete: isDiscrete,
     );
 
-    print('trackrect: ${trackRect.size}');
-    print('parentrect: ${parentBox.size}');
-    print('offset: dx = ${offset.dx} dy = ${offset.dy}');
+    var thermometerBaseRadius = preferredRect.height / 16;
 
-    print(parentBox.paintBounds.bottom);
-    final paint = Paint()..color = Colors.indigo;
-    final paint2 = Paint()..color = Colors.black;
+    var paintableRect = Rect.fromPoints(
+        preferredRect.topLeft.translate(thermometerBaseRadius * -2, 0),
+        preferredRect.bottomRight);
 
-    context.canvas.drawRRect(
-        RRect.fromLTRBAndCorners(
-            offset.dx, offset.dy, parentBox.size.width, parentBox.size.height),
-        paint);
+    var trackWidth = paintableRect.width;
+    var trackCenterLeft = paintableRect.centerLeft;
 
-    context.canvas.drawRRect(
-        RRect.fromLTRBAndCorners(offset.dx, offset.dy, parentBox.size.width / 2,
-            parentBox.size.height),
-        paint2);
+    // Thermometer reference points and dimensions.
+    var thermometerStemHeight = thermometerBaseRadius / 1.5;
+    var thermometerBaseCenter =
+        trackCenterLeft.translate(thermometerBaseRadius, 0);
+    var thermometerStemOrigin = thermometerBaseCenter.translate(
+        thermometerBaseRadius, thermometerStemHeight / -2);
+    var thermometerTickWidth =
+        (trackWidth - thermometerBaseRadius * 2) / thermometerSections;
+    var thermometerTickLineScale = 2;
 
-    //var size = Size(100, 10);
-    //RPSCustomPainter().paint(1, context.canvas, parentBox.size);
+    // Thermometer base and border.
+    // Note we overlap the first division for a smooth transition.
+    context.canvas.drawCircle(thermometerBaseCenter,
+        thermometerBaseRadius + borderThickness, borderPaint);
+    context.canvas
+        .drawCircle(thermometerBaseCenter, thermometerBaseRadius, fillPaint);
+
+    var firstSection = Rect.fromLTWH(
+      thermometerBaseCenter.dx,
+      thermometerBaseCenter.dy - (thermometerStemHeight / 2),
+      thermometerBaseRadius,
+      thermometerStemHeight,
+    );
+    context.canvas.drawRect(firstSection, fillPaint);
+
+    // All sections.
+    for (var secIndex = 0; secIndex < thermometerSections; secIndex++) {
+      var sectionOriginX =
+          thermometerStemOrigin.dx + (secIndex * thermometerTickWidth);
+      var sectionOriginY = thermometerStemOrigin.dy;
+
+      // Top measurement line.
+      var topLineP1 = Offset(
+          sectionOriginX,
+          thermometerBaseCenter.dy +
+              thermometerTickLineScale * thermometerBaseRadius);
+      var topLineP2 =
+          Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
+      context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
+
+      // Bottom measurement line.
+      var bottomLineP1 = Offset(
+          sectionOriginX,
+          thermometerBaseCenter.dy -
+              thermometerTickLineScale * thermometerBaseRadius);
+      var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
+      context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
+
+      // The section and its border.
+      var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
+          thermometerTickWidth, thermometerStemHeight);
+      context.canvas.drawRect(section, fillPaint);
+
+      paintBorder(context.canvas, section,
+          top: borderStyle, bottom: borderStyle);
+    }
+
+    // Final Section.
+    var sectionOriginX =
+        thermometerStemOrigin.dx + (thermometerSections * thermometerTickWidth);
+    var sectionOriginY = thermometerStemOrigin.dy;
+
+    // Top measurement line.
+    var topLineP1 = Offset(
+        sectionOriginX,
+        thermometerBaseCenter.dy +
+            thermometerTickLineScale * thermometerBaseRadius);
+    var topLineP2 =
+        Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
+    context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
+
+    // Bottom measurement line.
+    var bottomLineP1 = Offset(
+        sectionOriginX,
+        thermometerBaseCenter.dy -
+            thermometerTickLineScale * thermometerBaseRadius);
+    var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
+    context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
+
+    // The section and its border.
+    var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
+        thermometerTickWidth, thermometerStemHeight);
+    paintBorder(context.canvas, section, left: borderStyle);
   }
 }
 
@@ -108,13 +199,17 @@ class _ThermometerWidgetState extends State<ThermometerWidget> {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        //trackHeight: trackHeight,
-        //activeTrackColor: Colors.white,
+        trackHeight: 700,
+        activeTrackColor: Colors.white,
         trackShape: ThermometerSliderTrackShape(),
-        //thumbColor: Colors.white,
-        //overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+        thumbColor: Colors.black,
+        disabledThumbColor: Colors.black,
+        overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
+        //overlayColor: Colors.transparent,
       ),
       child: Slider(
+          label: "${_value.toInt()}",
+          thumbColor: Colors.transparent,
           value: _value,
           min: 0,
           max: 10,
