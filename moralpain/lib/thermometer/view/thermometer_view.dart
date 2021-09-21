@@ -21,32 +21,24 @@ class ThermometerView extends StatelessWidget {
         title: const Text('Moral Distress Survey'),
       ),
       body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 50),
             Text("Moral Distress Thermometer", style: TextStyle(fontSize: 25)),
-            const SizedBox(height: 75),
-            BlocBuilder<ThermometerCubit, int>(
-              builder: (context, state) {
-                return RotatedBox(quarterTurns: -1, child: ThermometerWidget());
-              },
-            ),
-            const SizedBox(height: 100),
+            RotatedBox(quarterTurns: -1, child: ThermometerWidget()),
+            Text("<Text Here>", style: TextStyle(fontSize: 14)),
+            ElevatedButton(
+                child: const Text('Continue to Questions'),
+                onPressed: () {
+                  //Navigator.push(
+                  //  context,
+                  //  MaterialPageRoute(
+                  //      builder: (context) => const ThermometerRoute()),
+                  //);
+                },
+                style:
+                    ElevatedButton.styleFrom(primary: const Color(0xFF232D4B))),
           ]),
-      //floatingActionButton: Column(
-      //  mainAxisAlignment: MainAxisAlignment.center,
-      //  crossAxisAlignment: CrossAxisAlignment.center,
-      //  children: <Widget>[
-      //    ThermometerWidget(),
-      //    FloatingActionButton(
-      //      key: const Key('counterView_increment_floatingActionButton'),
-      //      child: const Icon(Icons.add),
-      //      onPressed: () => context.read<ThermometerCubit>().set(2),
-      //    ),
-      //    const SizedBox(height: 8),
-      //  ],
-      //),
     );
   }
 }

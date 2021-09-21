@@ -1,16 +1,29 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moralpain/thermometer/cubit/thermometer_cubit.dart';
 
 class ThermometerSliderTrackShape extends SliderTrackShape {
-  ThermometerSliderTrackShape();
-
   // TODO (nphair): Parameterize these.
-  final double borderThickness = 1;
-  final Color borderColor = Color(0xFFE57200);
-  final Color fillColor = Colors.white;
+  final double borderThickness = 1.5;
+  final Color borderColor = Color(0xFF232D4B);
+  final Color inactiveFillColor = Colors.white;
+  final Color activeFillColor = Colors.red;
+  final activeFillColorSteps = [
+    Colors.blue,
+    Colors.green,
+    Colors.yellow,
+    Colors.red,
+  ];
   final Color measurementLineColor = Color(0xFF232D4B);
   final int thermometerSections = 10;
+
+  int maxFillSection = 0;
+
+  ThermometerSliderTrackShape(int maxFillSection) {
+    this.maxFillSection = maxFillSection;
+  }
 
   /**
    * The box the slider itself will be placed in by the framework.
@@ -65,7 +78,8 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
     }
 
     // Paint Constants.
-    final fillPaint = Paint()..color = fillColor;
+    final inactiveFillPaint = Paint()..color = inactiveFillColor;
+    final activeFillPaint = Paint()..color = activeFillColor;
     final borderPaint = Paint()..color = borderColor;
     final measurementLinePaint = Paint()
       ..color = measurementLineColor
@@ -105,8 +119,9 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
     // Note we overlap the first division for a smooth transition.
     context.canvas.drawCircle(thermometerBaseCenter,
         thermometerBaseRadius + borderThickness, borderPaint);
-    context.canvas
-        .drawCircle(thermometerBaseCenter, thermometerBaseRadius, fillPaint);
+
+    context.canvas.drawCircle(
+        thermometerBaseCenter, thermometerBaseRadius, fillPaintForSection(0));
 
     var firstSection = Rect.fromLTWH(
       thermometerBaseCenter.dx,
@@ -114,7 +129,7 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
       thermometerBaseRadius,
       thermometerStemHeight,
     );
-    context.canvas.drawRect(firstSection, fillPaint);
+    context.canvas.drawRect(firstSection, fillPaintForSection(0));
 
     // All sections.
     for (var secIndex = 0; secIndex < thermometerSections; secIndex++) {
@@ -142,7 +157,7 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
       // The section and its border.
       var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
           thermometerTickWidth, thermometerStemHeight);
-      context.canvas.drawRect(section, fillPaint);
+      context.canvas.drawRect(section, fillPaintForSection(secIndex));
 
       paintBorder(context.canvas, section,
           top: borderStyle, bottom: borderStyle);
@@ -175,6 +190,29 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
         thermometerTickWidth, thermometerStemHeight);
     paintBorder(context.canvas, section, left: borderStyle);
   }
+
+  /**
+   * Return the paint color for the section. 
+   * 
+   * When the number of fill colors does not divide evenly into the sections
+   * pad the top sections.
+   */
+  Paint fillPaintForSection(int section) {
+    if (section >= maxFillSection) {
+      return Paint()..color = inactiveFillColor;
+    }
+
+    var colorStepCount = activeFillColorSteps.length;
+    var remainder = thermometerSections % colorStepCount;
+    var evenlyDivisibleSectionCount = thermometerSections - remainder;
+    if (section >= evenlyDivisibleSectionCount) {
+      return Paint()..color = activeFillColorSteps.last;
+    }
+
+    var sectionColorStepSize = evenlyDivisibleSectionCount ~/ colorStepCount;
+    var step = section ~/ sectionColorStepSize;
+    return Paint()..color = activeFillColorSteps[step];
+  }
 }
 
 class ThermometerWidget extends StatefulWidget {
@@ -197,28 +235,30 @@ class _ThermometerWidgetState extends State<ThermometerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        trackHeight: 700,
-        activeTrackColor: Colors.white,
-        trackShape: ThermometerSliderTrackShape(),
-        thumbColor: Colors.black,
-        disabledThumbColor: Colors.black,
-        overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
-        //overlayColor: Colors.transparent,
-      ),
-      child: Slider(
-          label: "${_value.toInt()}",
-          thumbColor: Colors.transparent,
-          value: _value,
-          min: 0,
-          max: 10,
-          divisions: 10,
-          onChanged: (value) {
-            setState(() {
-              _value = value;
-            });
-          }),
-    );
+    // Cubit here?
+    return BlocBuilder<ThermometerCubit, double>(builder: (context, state) {
+      return SliderTheme(
+          data: SliderTheme.of(context).copyWith(
+            trackHeight: 700,
+            activeTrackColor: Colors.black,
+            trackShape: ThermometerSliderTrackShape(_value.toInt()),
+            thumbColor: Colors.black,
+            disabledThumbColor: Colors.black,
+            overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
+          ),
+          child: Slider(
+              label: "${_value.toInt()}",
+              thumbColor: Colors.transparent,
+              value: _value,
+              min: 0,
+              max: 10,
+              divisions: 10,
+              onChanged: (value) {
+                setState(() {
+                  _value = value;
+                  context.read<ThermometerCubit>().set(_value);
+                });
+              }));
+    });
   }
 }
