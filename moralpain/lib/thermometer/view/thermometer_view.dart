@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moralpain/questionnaire/questionnaire.dart';
 
 import 'package:moralpain/assets/constants.dart' as Constants;
+import 'package:moralpain/questionnaire_repository.dart';
 import '../thermometer.dart';
 import 'themometer_slider.dart';
 
@@ -22,29 +23,60 @@ class ThermometerView extends StatelessWidget {
         backgroundColor: const Color(Constants.COLORS_UVA_BLUE),
         title: const Text(Constants.APPBAR_TEXT),
       ),
-      body: Column(
+      body: Padding(
+          padding: EdgeInsets.all(Constants.PADDING),
+          child: OrientationBuilder(builder: (context, orientation) {
+            if (orientation == Orientation.portrait) {
+              return _potraitMode();
+            } else {
+              return _landscapeMode();
+            }
+          })),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => QuestionnaireRoute(
+                      questionnaireRepository: QuestionnaireRepository())),
+            );
+          },
+          child: const Icon(Icons.navigate_next),
+          backgroundColor: const Color(Constants.COLORS_UVA_BLUE)),
+    );
+  }
+
+  Widget _landscapeMode() => Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(Constants.THERMOMETER_TITLE, style: TextStyle(fontSize: 25)),
+            Expanded(
+                child: Column(children: [
+              Text(Constants.THERMOMETER_TITLE, style: TextStyle(fontSize: 16)),
+              SizedBox(height: 10),
+              Text(
+                Constants.THERMOMETER_INSTRUCTIONS,
+                textAlign: TextAlign.center,
+              )
+            ])),
+            Expanded(
+                child:
+                    RotatedBox(quarterTurns: -1, child: ThermometerWidget())),
+          ]);
+
+  Widget _potraitMode() => Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(Constants.THERMOMETER_TITLE, style: TextStyle(fontSize: 16)),
+            SizedBox(height: 10),
             Text(
               Constants.THERMOMETER_INSTRUCTIONS,
-              style: TextStyle(fontSize: 14),
               textAlign: TextAlign.center,
             ),
-            RotatedBox(quarterTurns: -1, child: ThermometerWidget()),
-            ElevatedButton(
-                child: const Text(Constants.THERMOMETER_NEXT_BUTTON),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const QuestionnaireRoute()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: const Color(Constants.COLORS_UVA_BLUE))),
-          ]),
-    );
-  }
+            SizedBox(height: 10),
+            Expanded(
+                child:
+                    RotatedBox(quarterTurns: -1, child: ThermometerWidget())),
+          ]);
 }

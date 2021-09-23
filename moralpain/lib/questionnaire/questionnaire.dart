@@ -1,2 +1,2 @@
-export 'cubit/questionnaire_cubit.dart';
+export 'bloc/questionnaire_bloc.dart';
 export 'view/questionnaire_route.dart';

@@ -236,10 +236,11 @@ class _ThermometerWidgetState extends State<ThermometerWidget> {
   @override
   Widget build(BuildContext context) {
     // Cubit here?
+    print(MediaQuery.of(context).size.height);
     return BlocBuilder<ThermometerCubit, double>(builder: (context, state) {
       return SliderTheme(
           data: SliderTheme.of(context).copyWith(
-            trackHeight: 700,
+            trackHeight: MediaQuery.of(context).size.height,
             activeTrackColor: Colors.black,
             trackShape: ThermometerSliderTrackShape(_value.toInt()),
             thumbColor: Colors.black,

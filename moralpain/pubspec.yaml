@@ -9,8 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  bloc: ^7.0.0
-  flutter_bloc: ^7.0.0
+  bloc: ^7.2.0
+  flutter_bloc: ^7.2.0
+  expandable_text: 2.2.0
 
 
 dev_dependencies:
@@ -22,3 +23,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/questionnaire.json

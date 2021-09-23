@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:moralpain/questionnaire_repository.dart';
 
 import '../questionnaire.dart';
 import 'questionnaire_view.dart';
@@ -9,15 +10,19 @@ import 'questionnaire_view.dart';
 /// [CounterCubit] instance to the [CounterView].
 /// {@endtemplate}
 class QuestionnaireRoute extends StatelessWidget {
-  /// {@macro counter_page}
-  const QuestionnaireRoute({Key? key}) : super(key: key);
+  final QuestionnaireRepository questionnaireRepository;
+
+  const QuestionnaireRoute({Key? key, required this.questionnaireRepository});
 
   // Make the cubit available to the children.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => QuestionnaireCubit(List.empty(growable: true)),
-      child: QuestionnaireView(),
-    );
+    return RepositoryProvider.value(
+        value: questionnaireRepository,
+        child: BlocProvider(
+          create: (_) => QuestionnaireBloc(repository: questionnaireRepository)
+            ..add(QuestionnaireLoadEvent()),
+          child: QuestionnaireView(),
+        ));
   }
 }

@@ -1,0 +1,79 @@
+[
+  {
+	"sectionId": "001",
+	"title": "Clinical Situations",
+	"subtitle": "",
+	"options": {
+	  "001_01": "Futile treatment",
+	  "001_03": "Prolong dying",
+	  "001_04": "Inadequate informed consent",
+	  "001_05": "Work with incompetent caregivers",
+	  "001_06": "Lack of consensus re: treatment plan",
+	  "001_07": "Being “in the middle” between key stakeholders",
+	  "001_10": "Care not in best interest of patient",
+	  "001_11": "Inappropriate use of resources",
+	  "001_12": "Inadequate pain relief",
+	  "001_13": "Provide false hope",
+	  "001_14": "Hastening dying",
+	  "001_15": "Lack of truth-telling",
+	  "001_16": "Unclear goals of care (lack of plan)",
+	  "001_17": "Other"
+	}
+  },
+  {
+	"sectionId": "002",
+	"title": "Internal Factors",
+	"subtitle": "",
+	"options": {
+	  "002_01": "Perceived powerlessness",
+	  "002_02": "Lack treatment alternatives",
+	  "002_03": "Inability to identify the ethical issues",
+	  "002_04": "Increased moral sensitivity",
+	  "002_05": "Incomplete information about the situation",
+	  "002_06": "Lack of assertiveness",
+	  "002_07": "Self-doubt",
+	  "002_10": "Socialization to follow others",
+	  "002_11": "Other"
+	}
+  },
+  {
+	"sectionId": "003",
+	"title": "External Factors",
+	"subtitle": "Institutional Constraints/Culture",
+	"options": {
+	  "003_01": "Lack of continuity of providers",
+	  "003_02": "No involvement in decision-making",
+	  "003_03": "Inadequate communication among team members",
+	  "003_04": "Inadequate staffing/increased turnover",
+	  "003_05": "Poor administrative support",
+	  "003_06": "Policies and priorities that conflict with care needs",
+	  "003_07": "Tolerance of disruptive/abusive behavior",
+	  "003_10": "Compromising care to reduce costs",
+	  "003_11": "Hierarchies within healthcare system",
+	  "003_12": "Other"
+	}
+  },
+  {
+	"sectionId": "004",
+	"title": "External Factors",
+	"subtitle": "Leagal and Regulatory Constraints",
+	"options": {
+	  "004_01": "Follow treatment plan due to fear of litigation",
+	  "004_02": "Compromise care due to insurance pressure or fear of litigation",
+	  "004_03": "Tension between ethical and legal",
+	  "004_04": "Other"
+	}
+  },
+  {
+	"sectionId": "005",
+	"title": "External Factors",
+	"subtitle": "Coworker Issues",
+	"options": {
+	  "005_02": "Intra-professional conflict (ex. RN to RN)",
+	  "005_03": "Inter-professional conflict (ex. RN to MD)",
+	  "005_04": "Poor collegial relationships",
+	  "005_05": "Other"
+	}
+  }
+]
+
