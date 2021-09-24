@@ -128,12 +128,19 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
     return Card(
       elevation: 3,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            question.title,
-            textAlign: TextAlign.center,
-          ),
-          Text(question.subtitle),
+          Padding(
+              padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    question.title,
+                  ),
+                  Text(question.subtitle),
+                ],
+              )),
           QuestionOptionsWidget(question.options)
         ],
       ),
