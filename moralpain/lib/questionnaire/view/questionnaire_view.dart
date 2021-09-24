@@ -64,7 +64,7 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
                 ExpandableText(
                   Constants.QUESTIONNAIRE_INSTRUCTIONS,
                   expandText: Constants.QUESTIONNAIRE_EXPAND_TEXT,
-                  collapseText: Constants.QUESTIONNAIRE_EXPAND_TEXT,
+                  collapseText: Constants.QUESTIONNAIRE_COLLAPSE_TEXT,
                   maxLines: 1,
                   linkEllipsis: false,
                   linkColor: Colors.blue,
