@@ -10,11 +10,11 @@ class HomeRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF232D4B),
-        title: const Text('Moral Distress Survey'),
+        title: const Text('Moral Distress'),
       ),
       body: Center(
         child: ElevatedButton(
-            child: const Text('Take the Moral Distress Survey'),
+            child: const Text('Whats your temperature?'),
             onPressed: () {
               Navigator.push(
                 context,
