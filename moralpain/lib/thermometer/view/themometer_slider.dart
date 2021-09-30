@@ -137,23 +137,6 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
           thermometerStemOrigin.dx + (secIndex * thermometerTickWidth);
       var sectionOriginY = thermometerStemOrigin.dy;
 
-      // Top measurement line.
-      var topLineP1 = Offset(
-          sectionOriginX,
-          thermometerBaseCenter.dy +
-              thermometerTickLineScale * thermometerBaseRadius);
-      var topLineP2 =
-          Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
-      context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
-
-      // Bottom measurement line.
-      var bottomLineP1 = Offset(
-          sectionOriginX,
-          thermometerBaseCenter.dy -
-              thermometerTickLineScale * thermometerBaseRadius);
-      var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
-      context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
-
       // The section and its border.
       var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
           thermometerTickWidth, thermometerStemHeight);
@@ -167,23 +150,6 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
     var sectionOriginX =
         thermometerStemOrigin.dx + (thermometerSections * thermometerTickWidth);
     var sectionOriginY = thermometerStemOrigin.dy;
-
-    // Top measurement line.
-    var topLineP1 = Offset(
-        sectionOriginX,
-        thermometerBaseCenter.dy +
-            thermometerTickLineScale * thermometerBaseRadius);
-    var topLineP2 =
-        Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
-    context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
-
-    // Bottom measurement line.
-    var bottomLineP1 = Offset(
-        sectionOriginX,
-        thermometerBaseCenter.dy -
-            thermometerTickLineScale * thermometerBaseRadius);
-    var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
-    context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
 
     // The section and its border.
     var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
