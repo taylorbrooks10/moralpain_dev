@@ -20,7 +20,7 @@ Notes from HEC 2017, MDCS
 
 ### General
 
-* promoting physician-nurse collegial relationships through interprofessional forums, facilitating  changes  in  the  workenvironment,   educating   nurse   leaders   about   moral   distress,   and   encouraging advocacy  on  behalf  of  patients  (McAndrew  et  al.2011;  Karanikola  et  al.2014; Wiegand  and  Funk2012). In  large  part,  general  strategies  have  not  been  tested empirically for effects on clinicians’ moral distress.
+* promoting physician-nurse collegial relationships through interprofessional forums, facilitating  changes  in  the  work environment,   educating   nurse   leaders   about   moral   distress,   and   encouraging advocacy  on  behalf  of  patients  (McAndrew  et  al.2011;  Karanikola  et  al.2014; Wiegand  and  Funk2012). In  large  part,  general  strategies  have  not  been  tested empirically for effects on clinicians’ moral distress.
 
 ## Measures
 
