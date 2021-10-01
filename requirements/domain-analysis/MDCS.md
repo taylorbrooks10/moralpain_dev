@@ -1,4 +1,4 @@
-# Moral Distress Management Systems
+# Moral Distress Consult Service Design & Evaluation
 
 Notes from HEC 2017, MDCS
 
