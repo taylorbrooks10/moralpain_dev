@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:moralpain/assets/constants.dart' as Constants;
 import '../../thermometer/thermometer.dart';
 
 class HomeRoute extends StatelessWidget {
@@ -10,11 +11,11 @@ class HomeRoute extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF232D4B),
-        title: const Text('Moral Distress Survey'),
+        title: const Text(Constants.APPBAR_TEXT),
       ),
       body: Center(
         child: ElevatedButton(
-            child: const Text('Take the Moral Distress Survey'),
+            child: const Text(Constants.HOME_BUTTON_TEXT),
             onPressed: () {
               Navigator.push(
                 context,
