@@ -1,13 +1,16 @@
 // The pattern for variable naming is: <FEATURE>_<STRING_ DESCRIPTOR>.
 
 // General Constants.
-const String APPBAR_TEXT = 'Moral Distress Survey';
+const String APPBAR_TEXT = 'Moral Distress';
 const int COLORS_UVA_BLUE = 0xFF232D4B;
 const int COLORS_UVA_ORANGE = 0xFFE57200;
 const double PADDING = 16.0;
 
+// Home Route Constants.
+const String HOME_BUTTON_TEXT = "What's Your Temperature?";
+
 // Thermometer Route Constants.
-const String THERMOMETER_TITLE = 'Moral Distress Level';
+const String THERMOMETER_TITLE = 'Moral Distress Thermometer';
 const String THERMOMETER_INSTRUCTIONS =
     'Please indicate on the thermometer the number that best describes how much moral distress you have been experiencing related to work in the past week including today.';
 const String THERMOMETER_NEXT_BUTTON = 'Continue to Questions';
