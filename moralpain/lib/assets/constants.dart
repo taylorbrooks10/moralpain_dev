@@ -26,5 +26,7 @@ const String QUESTIONNAIRE_EXPAND_TEXT = 'details';
 const String QUESTIONNAIRE_COLLAPSE_TEXT = 'less';
 const String QUESTIONNAIRE_SUBMIT_BUTTON = 'Submit';
 const String QUESTIONNAIRE_TOASTER_MESSAGE =
-    'Thank You - Your response has been submitted.';
+    'Thank You - Your response has been recorded and will be escalated if aggregate scores are high enough.';
+const int QUESTIONNAIRE_TOASTER_DURATION = 3;
+const double QUESTIONNAIRE_TOASTER_FONT_SIZE = 15;
 const String QUESTIONNAIRE_QUESTIONNAIRE_PATH = 'assets/questionnaire.json';

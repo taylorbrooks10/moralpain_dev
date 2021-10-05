@@ -101,11 +101,16 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
                 content: Text(
                   Constants.QUESTIONNAIRE_TOASTER_MESSAGE,
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: Constants.QUESTIONNAIRE_TOASTER_FONT_SIZE),
                 ),
-                duration: Duration(seconds: 3),
+                duration:
+                    Duration(seconds: Constants.QUESTIONNAIRE_TOASTER_DURATION),
               ));
 
-              Future.delayed(const Duration(seconds: 3), () {
+              Future.delayed(
+                  const Duration(
+                      seconds: Constants.QUESTIONNAIRE_TOASTER_DURATION), () {
                 Navigator.pop(context);
                 Navigator.pop(context);
               });
