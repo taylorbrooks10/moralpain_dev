@@ -5,6 +5,7 @@ import 'package:moralpain/assets/constants.dart' as Constants;
 import 'package:moralpain/models/question.dart';
 import 'package:moralpain/models/questionnaire.dart';
 import 'package:expandable_text/expandable_text.dart';
+import 'package:moralpain/submitted/submitted_route.dart';
 
 import '../questionnaire.dart';
 
@@ -95,20 +96,28 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
       floatingActionButton: Visibility(
         visible: _show,
         child: FloatingActionButton(
-            onPressed: () {
-              // TODO (nphair): Really should be going through the bloc.
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text(
-                  Constants.QUESTIONNAIRE_TOASTER_MESSAGE,
-                  textAlign: TextAlign.center,
-                ),
-                duration: Duration(seconds: 3),
-              ));
+            // onPressed: () {
+            //   // TODO (nphair): Really should be going through the bloc.
+            //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            //     content: Text(
+            //       Constants.QUESTIONNAIRE_TOASTER_MESSAGE,
+            //       textAlign: TextAlign.center,
+            //     ),
+            //     duration: Duration(seconds: 3),
+            //   ));
 
-              Future.delayed(const Duration(seconds: 3), () {
-                Navigator.pop(context);
-                Navigator.pop(context);
-              });
+            //   Future.delayed(const Duration(seconds: 3), () {
+            //     Navigator.pop(context);
+            //     Navigator.pop(context);
+            //   });
+            // },
+            onPressed: (){
+              
+               Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SubmittedRoute()),
+              );
             },
             child: Icon(Icons.send),
             backgroundColor: const Color(Constants.COLORS_UVA_BLUE)),
