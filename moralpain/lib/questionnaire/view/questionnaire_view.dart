@@ -96,21 +96,7 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
       floatingActionButton: Visibility(
         visible: _show,
         child: FloatingActionButton(
-            // onPressed: () {
-            //   // TODO (nphair): Really should be going through the bloc.
-            //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //     content: Text(
-            //       Constants.QUESTIONNAIRE_TOASTER_MESSAGE,
-            //       textAlign: TextAlign.center,
-            //     ),
-            //     duration: Duration(seconds: 3),
-            //   ));
-
-            //   Future.delayed(const Duration(seconds: 3), () {
-            //     Navigator.pop(context);
-            //     Navigator.pop(context);
-            //   });
-            // },
+           
             onPressed: (){
               
                Navigator.push(
