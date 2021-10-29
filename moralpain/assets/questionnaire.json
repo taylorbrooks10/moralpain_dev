@@ -1,73 +1,49 @@
 [
   {
 	"sectionId": "001",
-	"title": "Clinical Situations",
+	"title": "Patient",
 	"subtitle": "",
 	"options": {
-	  "001_01": "Futile treatment",
-	  "001_03": "Prolong dying",
-	  "001_04": "Inadequate informed consent",
-	  "001_05": "Work with incompetent caregivers",
-	  "001_06": "Lack of consensus re: treatment plan",
-	  "001_07": "Being “in the middle” between key stakeholders",
-	  "001_10": "Care not in best interest of patient",
-	  "001_11": "Inappropriate use of resources",
-	  "001_12": "Inadequate pain relief",
-	  "001_13": "Provide false hope",
-	  "001_14": "Hastening dying",
-	  "001_15": "Lack of truth-telling",
-	  "001_16": "Unclear goals of care (lack of plan)"
+	  "01": "Feeling pressured to give unnecessary/inappropriate tests and/or treatments",
+	  "02": "Having to continue aggressive treatment not in the patient's best interest",
+	  "03": "Causing unnecessary suffering or do not relieve pain/symptoms",
+	  "04": "Ignoring situations of inadequate informed consent",
+	  "05": "Witnessing providers giving \"false hope\" to patients/families",
+	  "06": "Having to follow MD/family's request to not discuss prognosis"
 	}
   },
   {
 	"sectionId": "002",
-	"title": "Internal Factors",
+	"title": "Team",
 	"subtitle": "",
 	"options": {
-	  "002_01": "Perceived powerlessness",
-	  "002_02": "Lack treatment alternatives",
-	  "002_03": "Inability to identify the ethical issues",
-	  "002_04": "Increased moral sensitivity",
-	  "002_05": "Incomplete information about the situation",
-	  "002_06": "Lack of assertiveness",
-	  "002_07": "Self-doubt",
-	  "002_10": "Socialization to follow others"
-	}
-  },
-  {
-	"sectionId": "003",
-	"title": "External Factors",
-	"subtitle": "Institutional Constraints/Culture",
-	"options": {
-	  "003_01": "Lack of continuity of providers",
-	  "003_02": "No involvement in decision-making",
-	  "003_03": "Inadequate communication among team members",
-	  "003_04": "Inadequate staffing/increased turnover",
-	  "003_05": "Poor administrative support",
-	  "003_06": "Policies and priorities that conflict with care needs",
-	  "003_07": "Tolerance of disruptive/abusive behavior",
-	  "003_10": "Compromising care to reduce costs",
-	  "003_11": "Hierarchies within healthcare system"
+	  "01": "Seeing unclear/inconsistent treatment plans or goals of care",
+	  "02": "Witnessing lack of provider continuity",
+	  "03": "Fearing retribution if I speak up",
+	  "04": "Witnessing other team members not competent in providing quality care",
+	  "05": "Fearing litigation",
+	  "06": "Feeling pressured to ignore medical error(s)",
+	  "07": "Feeling not supported enough to report a violation of procedure/ethics",
+	  "10": "Working with teams who don't treat patients with dignity/respect",
+	  "11": "Feeling unsafe/bullied amongst own colleagues",
+	  "12": "Working within power structures that compromise patient care",
+	  "13": "Witnessing poor team communication",
+	  "14": "Witnessing inconsistent messages to patient/family"
 	}
   },
   {
 	"sectionId": "004",
-	"title": "External Factors",
-	"subtitle": "Legal and Regulatory Constraints",
+	"title": "System",
+	"subtitle": "",
 	"options": {
-	  "004_01": "Follow treatment plan due to fear of litigation",
-	  "004_02": "Compromise care due to insurance pressure or fear of litigation",
-	  "004_03": "Tension between ethical and legal"
-	}
-  },
-  {
-	"sectionId": "005",
-	"title": "External Factors",
-	"subtitle": "Coworker Issues",
-	"options": {
-	  "005_02": "Intra-professional conflict (ex. RN to RN)",
-	  "005_03": "Inter-professional conflict (ex. RN to MD)",
-	  "005_04": "Poor collegial relationships"
+	  "01": "Caring for patients not qualified to care for",
+	  "02": "Caring for more patients than is safe",
+	  "03": "Experiencing lack of administrative/managerial support",
+	  "04": "Feeling required to work with abusive patients/family members",
+	  "05": "Feeling pressured from admin/insurers to reduce costs over patient care",
+	  "06": "Experiencing lack of resources/beds/equipment",
+	  "07": "Experiencing excessive documentation requirements",
+	  "10": "Feeling pressured to emphasize productivity/quality measures over patients"
 	}
   }
 ]
