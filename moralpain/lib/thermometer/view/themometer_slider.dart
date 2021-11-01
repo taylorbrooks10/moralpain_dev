@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moralpain/thermometer/cubit/thermometer_cubit.dart';
+import 'package:moralpain/assets/constants.dart' as Constants;
 
 class ThermometerSliderTrackShape extends SliderTrackShape {
   // TODO (nphair): Parameterize these.
@@ -137,23 +138,6 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
           thermometerStemOrigin.dx + (secIndex * thermometerTickWidth);
       var sectionOriginY = thermometerStemOrigin.dy;
 
-      // Top measurement line.
-      var topLineP1 = Offset(
-          sectionOriginX,
-          thermometerBaseCenter.dy +
-              thermometerTickLineScale * thermometerBaseRadius);
-      var topLineP2 =
-          Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
-      context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
-
-      // Bottom measurement line.
-      var bottomLineP1 = Offset(
-          sectionOriginX,
-          thermometerBaseCenter.dy -
-              thermometerTickLineScale * thermometerBaseRadius);
-      var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
-      context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
-
       // The section and its border.
       var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
           thermometerTickWidth, thermometerStemHeight);
@@ -167,23 +151,6 @@ class ThermometerSliderTrackShape extends SliderTrackShape {
     var sectionOriginX =
         thermometerStemOrigin.dx + (thermometerSections * thermometerTickWidth);
     var sectionOriginY = thermometerStemOrigin.dy;
-
-    // Top measurement line.
-    var topLineP1 = Offset(
-        sectionOriginX,
-        thermometerBaseCenter.dy +
-            thermometerTickLineScale * thermometerBaseRadius);
-    var topLineP2 =
-        Offset(sectionOriginX, sectionOriginY + thermometerStemHeight);
-    context.canvas.drawLine(topLineP1, topLineP2, measurementLinePaint);
-
-    // Bottom measurement line.
-    var bottomLineP1 = Offset(
-        sectionOriginX,
-        thermometerBaseCenter.dy -
-            thermometerTickLineScale * thermometerBaseRadius);
-    var bottomLineP2 = Offset(sectionOriginX, sectionOriginY);
-    context.canvas.drawLine(bottomLineP1, bottomLineP2, measurementLinePaint);
 
     // The section and its border.
     var section = Rect.fromLTWH(sectionOriginX, sectionOriginY,
@@ -231,8 +198,6 @@ class ThermometerWidget extends StatefulWidget {
 }
 
 class _ThermometerWidgetState extends State<ThermometerWidget> {
-  double _value = 0;
-
   @override
   Widget build(BuildContext context) {
     // Cubit here?
@@ -242,24 +207,72 @@ class _ThermometerWidgetState extends State<ThermometerWidget> {
           data: SliderTheme.of(context).copyWith(
             trackHeight: MediaQuery.of(context).size.height,
             activeTrackColor: Colors.black,
-            trackShape: ThermometerSliderTrackShape(_value.toInt()),
-            thumbColor: Colors.black,
-            disabledThumbColor: Colors.black,
+            trackShape: ThermometerSliderTrackShape(state.toInt()),
+            showValueIndicator: ShowValueIndicator.never,
+            valueIndicatorColor: Color(Constants.COLORS_UVA_BLUE),
+            thumbShape: ThermometerThumbShape(),
             overlayShape: RoundSliderOverlayShape(overlayRadius: 10),
           ),
           child: Slider(
-              label: "${_value.toInt()}",
+              label: state.toInt().toString(),
               thumbColor: Colors.transparent,
-              value: _value,
+              value: state,
               min: 0,
               max: 10,
               divisions: 10,
               onChanged: (value) {
                 setState(() {
-                  _value = value;
-                  context.read<ThermometerCubit>().set(_value);
+                  context.read<ThermometerCubit>().set(value);
                 });
               }));
     });
+  }
+}
+
+class ThermometerThumbShape extends RoundSliderThumbShape {
+  final _indicatorShape = const RectangularSliderValueIndicatorShape();
+
+  const ThermometerThumbShape();
+
+  @override
+  void paint(PaintingContext context, Offset center,
+      {required Animation<double> activationAnimation,
+      required Animation<double> enableAnimation,
+      required bool isDiscrete,
+      required TextPainter labelPainter,
+      required RenderBox parentBox,
+      required SliderThemeData sliderTheme,
+      required TextDirection textDirection,
+      required double value,
+      required double textScaleFactor,
+      required Size sizeWithOverflow}) {
+    super.paint(
+      context,
+      center,
+      activationAnimation: activationAnimation,
+      enableAnimation: enableAnimation,
+      sliderTheme: sliderTheme,
+      value: value,
+      textScaleFactor: textScaleFactor,
+      sizeWithOverflow: sizeWithOverflow,
+      isDiscrete: isDiscrete,
+      labelPainter: labelPainter,
+      parentBox: parentBox,
+      textDirection: textDirection,
+    );
+    _indicatorShape.paint(
+      context,
+      center,
+      activationAnimation: const AlwaysStoppedAnimation(1),
+      enableAnimation: enableAnimation,
+      labelPainter: labelPainter,
+      parentBox: parentBox,
+      sliderTheme: sliderTheme,
+      value: value,
+      textScaleFactor: 0.6,
+      sizeWithOverflow: sizeWithOverflow,
+      isDiscrete: isDiscrete,
+      textDirection: textDirection,
+    );
   }
 }

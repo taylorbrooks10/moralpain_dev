@@ -96,7 +96,6 @@ class QuestionnaireViewState extends State<QuestionnaireView> {
       floatingActionButton: Visibility(
         visible: _show,
         child: FloatingActionButton(
-           
             onPressed: (){
               
                Navigator.push(

@@ -14,8 +14,12 @@ import 'themometer_slider.dart';
 /// A [StatelessWidget] which reacts to the provided
 /// [CounterCubit] state and notifies it in response to user input.
 /// {@endtemplate}
-class ThermometerView extends StatelessWidget {
-  var x = 0.0;
+class ThermometerView extends StatefulWidget {
+  @override
+  _ThermometerViewState createState() => _ThermometerViewState();
+}
+
+class _ThermometerViewState extends State<ThermometerView> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -53,7 +57,9 @@ class ThermometerView extends StatelessWidget {
           children: [
             Expanded(
                 child: Column(children: [
-              Text(Constants.THERMOMETER_TITLE, style: TextStyle(fontSize: 16)),
+              Text(Constants.THERMOMETER_TITLE,
+                  style: TextStyle(
+                      fontSize: Constants.THERMOMETER_TITLE_FONT_SIZE)),
               SizedBox(height: 10),
               Text(
                 Constants.THERMOMETER_INSTRUCTIONS,
@@ -69,7 +75,9 @@ class ThermometerView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(Constants.THERMOMETER_TITLE, style: TextStyle(fontSize: 16)),
+            Text(Constants.THERMOMETER_TITLE,
+                style:
+                    TextStyle(fontSize: Constants.THERMOMETER_TITLE_FONT_SIZE)),
             SizedBox(height: 10),
             Text(
               Constants.THERMOMETER_INSTRUCTIONS,
